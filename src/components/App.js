@@ -3,8 +3,8 @@ import React from 'react';
 import FruitBasket from './FruitBasket';
 
 export default class App extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             fruit: [],
@@ -12,16 +12,19 @@ export default class App extends React.Component {
             currentFilter: null
         }
 
-        this.handleFilterChange = this.handleFilterChange.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.fetchFilters = this.fetchFilters.bind(this);
+        this.fetchFruit = this.fetchFruit.bind(this);
     }
 
-    handleFilterChange = event => {
+    handleChange = event => {
         console.log('new filter: ', event.target.value);
         this.setState({ currentFilter: event.target.value });
     }
 
     componentWillMount() {
         this.fetchFilters();
+        this.fetchFruit();
     }
     
     fetchFilters = () => {
@@ -30,10 +33,21 @@ export default class App extends React.Component {
             .then(filters => this.setState({ filters }));
     }    
 
+    fetchFruit = () => {
+        fetch('/api/fruit')
+            .then(response => response.json())
+            .then(fruit => this.setState({ fruit }));
+    }
+
     render() {
         return (
             <div>
-                <FruitBasket onChange={this.handleFilterChange}/>
+                <FruitBasket 
+                    updateFilterCallback={this.handleChange}
+                    fruit={this.state.fruit}
+                    filters={this.state.filters}
+                    currentFilter={this.state.currentFilter}
+                />
             </div>
         )
     }

@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-const FilteredFruitList = () => {  
-
-  const list = !this.props.filter ? this.props.fruit : this.props.fruit.filter(i => i.fruit_type === this.props.filter);
-  
+const FilteredFruitList = ({
+  fruit,
+  filter
+}) => {  
+  const list = !filter ? fruit : fruit.filter(i => i.fruit_type == filter);
+  debugger
       return (
         <ul className="fruit-list">
            {list.map((item, index) => <li key={index}>{item.char}</li>)}
