@@ -1,6 +1,6 @@
 import React from 'react';
 import Filter from './Filter';
-import FilteredFruitList from './FilteredFruitList.js';
+import FilteredFruitList from './FilteredFruitList';
 
 
 const FruitBasket = ({
@@ -8,7 +8,7 @@ const FruitBasket = ({
   filters,
   currentFilter,
   updateFilterCallback
-}) => {
+  }) => {
       return (
         <div className="fruit-basket">
           <FilteredFruitList 
